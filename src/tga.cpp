@@ -1,9 +1,11 @@
 
 
+#if defined _MSC_VER
+#define _CRT_SECURE_NO_WARNINGS
+#endif
 
-
-#include <stdio.h>
-#include <string.h>
+#include <cstdio>
+#include <string>
 
 
 
@@ -66,21 +68,17 @@ void TgaWrite(const char * const FileName, const char * const data, const unsign
 	fclose(file);	
 }
 
-
-
-unsigned char* TgaRead(const char * const FileName, unsigned &width, unsigned &height)
+unsigned char* TgaRead(const std::string FileName, unsigned &width, unsigned &height)
 {
-	FILE *file;
 	tgaStruct tga;
 	unsigned char *data, *tmpData;
 	unsigned size, readed;
+	FILE* file;
 	
-
-	file = fopen(FileName, "rb");
+	file = fopen(FileName.c_str(), "rb");
 	if( !file )
 	{
-		width = 0;
-		height = 0;
+		width = height = 0;
 		return 0;
 	}
 	
@@ -94,7 +92,7 @@ unsigned char* TgaRead(const char * const FileName, unsigned &width, unsigned &h
 	readed = fread(tmpData, 1, size, file);
 	if(readed != size)
 	{
-		perror("some error occured\n");
+		perror("some error occured in TgaRead\n");
 		delete[] tmpData;
 		delete[] data;
 		return 0;
@@ -107,14 +105,7 @@ unsigned char* TgaRead(const char * const FileName, unsigned &width, unsigned &h
 		data[p + 3] = 255;
 	}
 	
-
-	
-	//sizeof(tgaStruct) must be 18
-	
-	//fwrite( invData, 1, len, file);
-	
 	delete[] tmpData;
-	
 	fclose(file);
 	return data;
 }

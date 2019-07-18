@@ -1,17 +1,23 @@
 
-//#include "stdafx.h"
+
+#if defined _MSC_VER
+#include <windows.h>
+#define _USE_MATH_DEFINES
+
+#else
 #define _STDCALL_SUPPORTED
 #define _M_IX86
-
-#include <GL/glut.h>
+#endif
+#include <gl/GL.h>
 
 #include <stdio.h>
 #include <stdlib.h>
 #include <stdarg.h>
-#include <math.h>
+#include <cmath>
 
 #include "elements.h"
 
+#include "GL/glut.h"
 
 unsigned detal = 10;
 
@@ -20,7 +26,7 @@ int mainWindow, padWindow;
 int MouseDownStartX, MouseDownStartY;
 int Mousedx, Mousedy;
 int toogleFog = 0;
-float fogDendity = 1, fogcolor[] = {0.4, 0.3, 0.35, 0.8};
+float fogDendity = 1, fogcolor[] = {0.4f, 0.3f, 0.35f, 0.8f};
 int toogleLight = 1, uselist = 1;
 int xpos = 0, zpos = 0;
 
@@ -29,23 +35,21 @@ int toogleTexture = 1, toogleAnimate = 0, toogleConsist = 0, toogleRotate = 0, t
 void draw_t34();
 void t34_init();
 
-#if 1
+
 void RotateFromMouse()
 {
 		glMatrixMode(GL_PROJECTION);
-		//glLoadIdentity();
 
 		if(Mousedx)
-			glRotatef(Mousedx, 0, 1, 0);
+			glRotatef(float(Mousedx), 0.f, 1.f, 0.f);
 		if(Mousedy)
-			glRotatef(Mousedy, 1, 0, 0);
+			glRotatef(float(Mousedy), 1.f, 0.f, 0.f);
 			
 		glTranslated(0.2*xpos, 0, 0.2*zpos);
-		xpos = zpos = 0;
 		glMatrixMode(GL_MODELVIEW);
 
-		Mousedx = 0;
-		Mousedy = 0;
+		xpos = zpos = 0;
+		Mousedx = Mousedy = 0;
 }
 
 
@@ -53,10 +57,10 @@ void RotateFromMouse()
 void DrawFig1(int solid)
 {
 	glPushMatrix();
-	glTranslatef(-0.5, 0.2, -1);
-	glScalef(0.1, 0.1, 0.1);
+	glTranslatef(-0.5f, 0.2f, -1.f);
+	glScalef(0.1f, 0.1f, 0.1f);
 	
-	glColor4f(0, 1, 0, 1);
+	glColor4f(0.f, 1.f, 0.f, 1.f);
 	if(solid)
 		//glutSolidDodecahedron();
 		glutSolidTorus(0.3, 0.5, 10, 10);
@@ -370,9 +374,9 @@ void KeyBoardFunc(unsigned char key, int x, int y)
 		
 		case 'g':
 		case 'G':
-			fogDendity += 0.2;
+			fogDendity += 0.2f;
 			if(fogDendity > 20)
-				fogDendity = 0.1;
+				fogDendity = 0.1f;
 		break;
 		
 		case 'c':
@@ -478,7 +482,7 @@ int main(int argc, char **argv)
 	glutMainLoop();
 	return 0;
 }
-#endif
+
 
 
 

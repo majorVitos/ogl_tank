@@ -1,20 +1,31 @@
 
-
+#if defined _MSC_VER
+#include <windows.h>
+#define _USE_MATH_DEFINES
+#else
 #define _STDCALL_SUPPORTED
 #define _M_IX86
+#endif
 
-#include <stdio.h>
-#include <stdlib.h>
-#include <math.h>
+#include <GL/GL.h>
 
-#include <GL/glut.h>
+
+#include <string>
+#include <cstdio>
+#include <cstdlib>
+#include <cmath>
+
+#include "GL/glut.h"
 #include "elements.h"
-#include "tga.h"
+
+
+std::string media_path = "../media/";
 
 extern unsigned detal;
 extern int toogleTexture, toogleAnimate, toogleConsist;
 
 unsigned t34textures[6];
+unsigned char* TgaRead(const std::string FileName, unsigned& width, unsigned& height);
 
 void draw_1ring(const double inerR, const double outR, const unsigned N)
 {
@@ -76,7 +87,7 @@ void draw_base_wheel(double r)
 	for(unsigned i = 0; i < 3; i++)
 	{
 		glPushMatrix();
-		glRotatef(60. - 60*float(i), 0, 0, 1); 
+		glRotatef(60. - 60.f*float(i), 0, 0, 1); 
 		glTranslatef(0, r * 0.4, 0);
 		draw_cylinder_my( r * 0.03, r*0.05, detal >> 1, detal >> 1, 0);
 		glPopMatrix();
@@ -192,21 +203,27 @@ void draw_base()
 	glBegin(GL_TRIANGLES);
 	//Нижнее основание
 	glNormal3fv(basev[0] );
+	for (int i = 1; i < 7; i++)
+		glVertex3fv(basev[i]);
+	/*
 	glVertex3fv(basev[1] );
 	glVertex3fv(basev[2] );
 	glVertex3fv(basev[3] );
 	glVertex3fv(basev[4] );
 	glVertex3fv(basev[5] );
-	glVertex3fv(basev[6] );
+	glVertex3fv(basev[6] );*/
 	
 	//Левая нижняя боковушка
 	glNormal3fv(basev[7] );
+	for (int i = 8; i < 14; i++)
+		glVertex3fv(basev[i]);
+	/*
 	glVertex3fv(basev[8] );
 	glVertex3fv(basev[9] );
 	glVertex3fv(basev[10] );
 	glVertex3fv(basev[11] );
 	glVertex3fv(basev[12] );
-	glVertex3fv(basev[13] );
+	glVertex3fv(basev[13] );*/
 	//Передний левый уголок
 	glVertex3fv(basev[14] );
 	glVertex3fv(basev[15] );
@@ -692,13 +709,10 @@ void draw_engine()
 
 void draw_t34()
 {
-	static float canonAngle = 0, canonAngleRand = 0, canonPhi = 0, canonPhiRand = 0, wheelAngle = 0;
-	static int anglef = 0, phif = 0;
+	float canonAngle = 0, canonAngleRand = 0, canonPhi = 0, canonPhiRand = 0, wheelAngle = 0;
+	int anglef = 0, phif = 0;
 	
-	glColor3f(0.5, 0.5, 0.5);
-	//glColor3f(0, 1, 0);
-	
-
+	glColor3f(0.5f, 0.5f, 0.5f);
 
 	if(toogleConsist)
 	{
@@ -769,7 +783,7 @@ void t34_init()
 	glPixelStorei(GL_UNPACK_ROW_LENGTH, 0);
 	glGenTextures(4, t34textures);
 	
-	if( (ImageData = TgaRead("media/front.tga", width, height)) == 0)
+	if( (ImageData = TgaRead(media_path + "front.tga", width, height)) == 0)
 	{
 		printf("Tga Read fail\n");
 		exit(0);
@@ -781,10 +795,9 @@ void t34_init()
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
 	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, width, height,
 								0, GL_RGBA, GL_UNSIGNED_BYTE, ImageData);
-	
 	delete[] ImageData;
 	
-	if( (ImageData = TgaRead("media/head_left.tga", width, height)) == 0)
+	if( (ImageData = TgaRead(media_path + "head_left.tga", width, height)) == 0)
 	{
 		printf("Tga Read fail\n");
 		exit(0);
@@ -798,7 +811,7 @@ void t34_init()
 								0, GL_RGBA, GL_UNSIGNED_BYTE, ImageData);
 	delete[] ImageData;
 	
-	if( (ImageData = TgaRead("media/head_right.tga", width, height)) == 0)
+	if( (ImageData = TgaRead(media_path + "head_right.tga", width, height)) == 0)
 	{
 		printf("Tga Read fail\n");
 		exit(0);
@@ -812,7 +825,7 @@ void t34_init()
 								0, GL_RGBA, GL_UNSIGNED_BYTE, ImageData);
 	delete[] ImageData;
 	
-	if( (ImageData = TgaRead("media/head.tga", width, height)) == 0)
+	if( (ImageData = TgaRead(media_path + "head.tga", width, height)) == 0)
 	{
 		printf("Tga Read fail\n");
 		exit(0);
@@ -826,7 +839,7 @@ void t34_init()
 								0, GL_RGBA, GL_UNSIGNED_BYTE, ImageData);
 	delete[] ImageData;
 	
-	if( (ImageData = TgaRead("media/head_back.tga", width, height)) == 0)
+	if( (ImageData = TgaRead(media_path + "head_back.tga", width, height)) == 0)
 	{
 		printf("Tga Read fail\n");
 		exit(0);
@@ -840,7 +853,7 @@ void t34_init()
 								0, GL_RGBA, GL_UNSIGNED_BYTE, ImageData);
 	delete[] ImageData;
 	
-	if( (ImageData = TgaRead("media/head_front.tga", width, height)) == 0)
+	if( (ImageData = TgaRead(media_path + "head_front.tga", width, height)) == 0)
 	{
 		printf("Tga Read fail\n");
 		exit(0);
@@ -852,6 +865,5 @@ void t34_init()
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
 	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, width, height,
 								0, GL_RGBA, GL_UNSIGNED_BYTE, ImageData);
-	delete[] ImageData;
-				
+	delete[] ImageData;	
 }

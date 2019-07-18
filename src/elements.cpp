@@ -1,7 +1,14 @@
 
+#if defined _MSC_VER
+#include <windows.h>
+#define _USE_MATH_DEFINES
+#else
+#define _STDCALL_SUPPORTED
+#define _M_IX86
+#endif
 
 #include <GL/gl.h>
-#include <math.h>
+#include <cmath>
 
 void vector_mul( float *res, const float *v1, const float *v2)
 {
@@ -23,7 +30,7 @@ void draw_disk_my(const float r, const unsigned N)
 {
 	float x, y, k;
 	
-	k = 2.*M_PI/float(N);
+	k = float(2.*M_PI)/float(N);
 	
 	glBegin(GL_TRIANGLE_FAN);
 	//glNormal3f(0, 0, 1);
@@ -40,11 +47,11 @@ void draw_disk_my(const float r, const unsigned N)
 
 void draw_cylinder_my(const float r, const float h, unsigned N, const unsigned NroofUp, const unsigned NroofDown)
 {
-	float x, y, x1, y1;
+	float x, y;
 	float k;
-	float v1[3], v2[3], vn[3];
+	float vn[3];
 	
-	k = 2.*M_PI / float(N);
+	k = float(2.*M_PI) / float(N);
 	
 	glBegin(GL_TRIANGLE_STRIP);
 	
