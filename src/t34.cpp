@@ -17,7 +17,7 @@
 
 #include "GL/glut.h"
 #include "elements.h"
-
+#include "t34.h"
 
 std::string media_path = "../media/";
 
@@ -105,99 +105,6 @@ void draw_base_wheel(double r)
 }
 
 
-
-
-float basev[][3] =
-	{
-		//Нижнее основание
-		{0, 0, -1},
-		{-0.9, -0.5, 0}, {-0.9, 0.5, 0}, {0.8, 0.5, 0}, 		{0.8, 0.5, 0}, {0.8, -0.5, 0}, {-0.9, -0.5, 0},
-		
-		//Левая нижняя боковушка
-		{0, -1, 0},
-		{-0.9, -0.5, 0}, {-0.9, -0.5, 0.4}, {0.8, -0.5, 0},		{0.8, -0.5, 0}, {0.8, -0.5, 0.4}, {-0.9, -0.5, 0.4},
-		//передний левый уголок
-		{-0.9, -0.5, 0}, {-1.1, -0.5, 0.15}, {-0.9, -0.5, 0.4},
-		//Задний левый уголок
-		{0.8, -0.5, 0}, {0.95, -0.5, 0.2}, {0.8, -0.5, 0.4},
-		
-		//Верхняя левая боковушка
-		{0, cos( 5./6.*M_PI), sin(5./6.*M_PI) },
-		{-0.9, -0.5, 0.4}, {-0.8, -0.4, 0.6}, {0.8, -0.5, 0.4},		{-0.8, -0.4, 0.6}, {0.7, -0.4, 0.6}, {0.8, -0.5, 0.4},
-		
-		
-		//правая нижняя боковушка
-		{0, 1, 0},
-		{-0.9, 0.5, 0}, {-0.9, 0.5, 0.4}, {0.8, 0.5, 0},		{0.8, 0.5, 0}, {0.8, 0.5, 0.4}, {-0.9, 0.5, 0.4},
-		//передний правый уголок
-		{-0.9, 0.5, 0}, {-1.1, 0.5, 0.15}, {-0.9, 0.5, 0.4},
-		//Задний правый уголок
-		{0.8, 0.5, 0}, {0.95, 0.5, 0.2}, {0.8, 0.5, 0.4},
-		
-		//Верхняя правая боковушка
-		{0, cos(1./6.*M_PI), sin(1./6.*M_PI) },
-		{-0.9, 0.5, 0.4}, {-0.8, 0.4, 0.6}, {0.8, 0.5, 0.4},		{-0.8, 0.4, 0.6}, {0.7, 0.4, 0.6}, {0.8, 0.5, 0.4},
-		
-		
-		//Нижняя защита1 водителя
-		{cos(5./3.*M_PI), 0, sin(5./3.*M_PI)},
-		{-0.9, -0.5, 0}, {-1.1, -0.5, 0.15}, {-0.9, 0.5, 0},		{-0.9, 0.5, 0}, {-1.1, 0.5, 0.15}, {-1.1, -0.5, 0.15},
-		//верхняя защита1 водителя
-		{cos(3./4.*M_PI), 0, sin(3./4.*M_PI)},
-		{-1.1, -0.5, 0.15}, {-0.9, -0.5, 0.4}, {-1.1, 0.5, 0.15},	{-1.1, 0.5, 0.15}, {-0.9, 0.5, 0.4}, {-0.9, -0.5, 0.4},
-		//верхняя защита2 водителя
-		{cos(5./6.*M_PI), 0, sin(5./6.*M_PI)},
-		{-0.9, -0.5, 0.4}, {-0.9, 0.5, 0.4}, {-0.8, -0.4, 0.6},		{-0.9, 0.5, 0.4}, {-0.8, 0.4, 0.6}, {-0.8, -0.4, 0.6},
-		
-		//Задняя нижняя защита
-		{cos(7./4.*M_PI), 0, sin(7./4.*M_PI)},
-		{0.8, -0.5, 0}, {0.8, 0.5, 0}, {0.95, -0.5, 0.2},			{0.8, 0.5, 0}, {0.95, -0.5, 0.2}, {0.95, 0.5, 0.2},
-		//Задняя верхняя защита1
-		{cos(1./4.*M_PI), 0, sin(1./4.*M_PI)},
-		{0.95, -0.5, 0.2}, {0.95, 0.5, 0.2}, {0.8, -0.5, 0.4},		{0.95, 0.5, 0.2}, {0.8, 0.5, 0.4}, {0.8, -0.5, 0.4},
-		//Задняя верхняя защита2
-		{cos(1./6.*M_PI), 0, sin(1./6.*M_PI)},
-		{0.8, -0.5, 0.4}, {0.7, -0.4, 0.6}, {0.8, 0.5, 0.4},		{0.8, 0.5, 0.4}, {0.7, -0.4, 0.6}, {0.7, 0.4, 0.6},
-		
-		//Верхняя крышка
-		{0, 0, 1},
-		{-0.8, -0.4, 0.6}, {-0.8, 0.4, 0.6}, {0.7, -0.4, 0.6},		{-0.8, 0.4, 0.6}, {0.7, 0.4, 0.6}, {0.7, -0.4, 0.6},
-		
-		//Левая Юбка
-		{0, 0, 1},
-		{-0.9, -0.5, 0.4}, {-0.9, -0.65, 0.4}, {0.8, -0.5, 0.4},	{0.8, -0.5, 0.4}, {0.8, -0.65, 0.4}, {-0.9, -0.65, 0.4},
-		//спереди
-		{cos(3./4.*M_PI), 0, sin(3./4.*M_PI)},
-		{-0.9, -0.5, 0.4}, {-0.9, -0.65, 0.4}, {-1.2, -0.5, 0.3},	{-0.9, -0.65, 0.4}, {-1.2, -0.5, 0.3}, {-1.2, -0.65, 0.3},
-		//там же
-		{0, 1, 0},
-		{-0.9, -0.5, 0.4,}, {-1.2, -0.5, 0.3}, {-0.9, -0.5, 0.15},
-		//сзади
-		{cos(1./4.*M_PI), 0, sin(1./4.*M_PI)},
-		{0.8, -0.5, 0.4}, {0.8, -0.65, 0.4}, {1.0, -0.5, 0.3},		{0.8, -0.65, 0.4}, {1.0, -0.5, 0.3}, {1.0, -0.65, 0.3},
-		//там же
-		{0, 1, 0},
-		{0.8, -0.5, 0.4}, {0.8, -0.5, 0.3}, {1.0, -0.5, 0.3},
-		
-		
-		//Правая Юбка
-		{0, 0, 1},
-		{-0.9, 0.5, 0.4}, {-0.9, 0.65, 0.4}, {0.8, 0.5, 0.4},	{0.8, 0.5, 0.4}, {0.8, 0.65, 0.4}, {-0.9, 0.65, 0.4},
-		//спереди
-		{cos(3./4.*M_PI), 0, sin(3./4.*M_PI)},
-		{-0.9, 0.5, 0.4}, {-0.9, 0.65, 0.4}, {-1.2, 0.5, 0.3},	{-0.9, 0.65, 0.4}, {-1.2, 0.5, 0.3}, {-1.2, 0.65, 0.3},
-		//там же
-		{0, -1, 0},
-		{-0.9, 0.5, 0.4,}, {-1.2, 0.5, 0.3}, {-0.9, 0.5, 0.15},
-		//сзади
-		{cos(1./4.*M_PI), 0, sin(1./4.*M_PI)},
-		{0.8, 0.5, 0.4}, {0.8, 0.65, 0.4}, {1.0, 0.5, 0.3},		{0.8, 0.65, 0.4}, {1.0, 0.5, 0.3}, {1.0, 0.65, 0.3},
-		//там же
-		{0, 1, 0},
-		{0.8, 0.5, 0.4}, {0.8, 0.5, 0.3}, {1.0, 0.5, 0.3},
-	};
-	
-
 void draw_base()
 {
 	glBegin(GL_TRIANGLES);
@@ -205,79 +112,38 @@ void draw_base()
 	glNormal3fv(basev[0] );
 	for (int i = 1; i < 7; i++)
 		glVertex3fv(basev[i]);
-	/*
-	glVertex3fv(basev[1] );
-	glVertex3fv(basev[2] );
-	glVertex3fv(basev[3] );
-	glVertex3fv(basev[4] );
-	glVertex3fv(basev[5] );
-	glVertex3fv(basev[6] );*/
 	
 	//Левая нижняя боковушка
 	glNormal3fv(basev[7] );
 	for (int i = 8; i < 14; i++)
 		glVertex3fv(basev[i]);
-	/*
-	glVertex3fv(basev[8] );
-	glVertex3fv(basev[9] );
-	glVertex3fv(basev[10] );
-	glVertex3fv(basev[11] );
-	glVertex3fv(basev[12] );
-	glVertex3fv(basev[13] );*/
-	//Передний левый уголок
-	glVertex3fv(basev[14] );
-	glVertex3fv(basev[15] );
-	glVertex3fv(basev[16] );
-	//Задний левый уголок
-	glVertex3fv(basev[17] );
-	glVertex3fv(basev[18] );
-	glVertex3fv(basev[19] );
 	
-	//Верхняя левая боковушка
+	//Передний левый уголок 14:16
+	//Задний левый уголок 17:19
+	for (int i = 14; i < 20; i++)
+		glVertex3fv(basev[i]);
+	
+	//Верхняя левая боковушка 21:26
 	glNormal3fv(basev[20] );
-	glVertex3fv(basev[21] );
-	glVertex3fv(basev[22] );
-	glVertex3fv(basev[23] );
-	glVertex3fv(basev[24] );
-	glVertex3fv(basev[25] );
-	glVertex3fv(basev[26] );	
-	
-	
-	//правая нижняя боковушка
+	for (int i = 21; i < 27; i++)
+		glVertex3fv(basev[i]);
+
+	//правая нижняя боковушка 28:33
+	//передний правый уголок 34:36
+	//Задний правый уголок 37:39
 	glNormal3fv(basev[27] );
-	glVertex3fv(basev[28] );
-	glVertex3fv(basev[29] );
-	glVertex3fv(basev[30] );
-	glVertex3fv(basev[31] );
-	glVertex3fv(basev[32] );
-	glVertex3fv(basev[33] );
-	//передний правый уголок
-	glVertex3fv(basev[34] );
-	glVertex3fv(basev[35] );
-	glVertex3fv(basev[36] );
-	//Задний правый уголок
-	glVertex3fv(basev[37] );
-	glVertex3fv(basev[38] );
-	glVertex3fv(basev[39] );
-	
-	//Верхняя правая боковушка
+	for (int i = 28; i < 40; i++)
+		glVertex3fv(basev[i]);
+
+	//Верхняя правая боковушка 41:46
 	glNormal3fv(basev[40] );
-	glVertex3fv(basev[41] );
-	glVertex3fv(basev[42] );
-	glVertex3fv(basev[43] );
-	glVertex3fv(basev[44] );
-	glVertex3fv(basev[45] );
-	glVertex3fv(basev[46] );
-	
-	
-	//Нижняя защита1 водителя
+	for (int i = 41; i < 47; i++)
+		glVertex3fv(basev[i]);
+
+	//Нижняя защита1 водителя 48:53
 	glNormal3fv(basev[47] );
-	glVertex3fv(basev[48] );
-	glVertex3fv(basev[49] );
-	glVertex3fv(basev[50] );
-	glVertex3fv(basev[51] );
-	glVertex3fv(basev[52] );
-	glVertex3fv(basev[53] );
+	for (int i = 48; i < 54; i++)
+		glVertex3fv(basev[i]);
 	glEnd();
 	
 	if(toogleTexture)
@@ -736,41 +602,40 @@ void draw_t34()
 	{
 		if(anglef)
 		{
-			if(canonAngle + canonAngleRand >= 360)
+			if(canonAngle + canonAngleRand >= 360.f)
 			{
 				anglef = 0;
-				canonAngleRand = 260.*rand() / float(RAND_MAX);
+				canonAngleRand = 260.f*rand() / float(RAND_MAX);
 			}
-			canonAngle += 0.6;
+			canonAngle += 0.6f;
 		}else
 		{
-			if(canonAngle - canonAngleRand <= 0)
+			if(canonAngle - canonAngleRand <= 0.f)
 			{
 				anglef = 1;
-				canonAngleRand = 260.*rand() / float(RAND_MAX);
+				canonAngleRand = 260.f*rand() / float(RAND_MAX);
 			}
-			canonAngle -= 0.7;
+			canonAngle -= 0.7f;
 		}
-		
 		if(phif)
 		{
-			if(canonPhi + canonPhiRand >=  70)
+			if(canonPhi + canonPhiRand >=  70.f)
 			{
 				phif = 0;
 				canonPhiRand = 70.*rand() / float(RAND_MAX);
 			}
-			canonPhi += 0.2;
+			canonPhi += 0.2f;
 		}else
 		{
-			if(canonPhi - canonPhiRand <= 0)
+			if(canonPhi - canonPhiRand <= 0.f)
 			{
 				phif = 1;
 				canonPhiRand = 70.*rand() / float(RAND_MAX);
 			}
-			canonPhi -= 0.2;
+			canonPhi -= 0.2f;
 		}
-		if( (wheelAngle += 1.5) >= 360)
-			wheelAngle = 0;
+		if( (wheelAngle += 1.5f) >= 360.f)
+			wheelAngle = 0.f;
 	}
 }
 
@@ -780,90 +645,25 @@ void t34_init()
 	unsigned width, height;
 	unsigned char *ImageData;
 	
+	const char* txt_file_names[] = { "front.tga", "head_left.tga", "head_right.tga", "head.tga", "head_back.tga", "head_front.tga" };
+
+	size_t num = sizeof(txt_file_names) / sizeof(char*);
 	glPixelStorei(GL_UNPACK_ROW_LENGTH, 0);
-	glGenTextures(4, t34textures);
-	
-	if( (ImageData = TgaRead(media_path + "front.tga", width, height)) == 0)
+	glGenTextures(num, t34textures);
+	for (size_t i = 0; i < num; i++)
 	{
-		printf("Tga Read fail\n");
-		exit(0);
+		if ((ImageData = TgaRead(media_path + txt_file_names[i], width, height)) == 0)
+		{
+			printf((std::string("tga file:") + media_path + txt_file_names[i] + " reading fail").c_str());
+			exit(1);
+		}
+		glBindTexture(GL_TEXTURE_2D, t34textures[i]);
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP);
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP);
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
+		glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, width, height,
+			0, GL_RGBA, GL_UNSIGNED_BYTE, ImageData);
+		delete[] ImageData;
 	}
-	glBindTexture(GL_TEXTURE_2D, t34textures[0]);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
-	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, width, height,
-								0, GL_RGBA, GL_UNSIGNED_BYTE, ImageData);
-	delete[] ImageData;
-	
-	if( (ImageData = TgaRead(media_path + "head_left.tga", width, height)) == 0)
-	{
-		printf("Tga Read fail\n");
-		exit(0);
-	}
-	glBindTexture(GL_TEXTURE_2D, t34textures[1]);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
-	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, width, height,
-								0, GL_RGBA, GL_UNSIGNED_BYTE, ImageData);
-	delete[] ImageData;
-	
-	if( (ImageData = TgaRead(media_path + "head_right.tga", width, height)) == 0)
-	{
-		printf("Tga Read fail\n");
-		exit(0);
-	}
-	glBindTexture(GL_TEXTURE_2D, t34textures[2]);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
-	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, width, height,
-								0, GL_RGBA, GL_UNSIGNED_BYTE, ImageData);
-	delete[] ImageData;
-	
-	if( (ImageData = TgaRead(media_path + "head.tga", width, height)) == 0)
-	{
-		printf("Tga Read fail\n");
-		exit(0);
-	}
-	glBindTexture(GL_TEXTURE_2D, t34textures[3]);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
-	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, width, height,
-								0, GL_RGBA, GL_UNSIGNED_BYTE, ImageData);
-	delete[] ImageData;
-	
-	if( (ImageData = TgaRead(media_path + "head_back.tga", width, height)) == 0)
-	{
-		printf("Tga Read fail\n");
-		exit(0);
-	}
-	glBindTexture(GL_TEXTURE_2D, t34textures[4]);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
-	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, width, height,
-								0, GL_RGBA, GL_UNSIGNED_BYTE, ImageData);
-	delete[] ImageData;
-	
-	if( (ImageData = TgaRead(media_path + "head_front.tga", width, height)) == 0)
-	{
-		printf("Tga Read fail\n");
-		exit(0);
-	}
-	glBindTexture(GL_TEXTURE_2D, t34textures[5]);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
-	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, width, height,
-								0, GL_RGBA, GL_UNSIGNED_BYTE, ImageData);
-	delete[] ImageData;	
 }

@@ -35,7 +35,6 @@ int toogleTexture = 1, toogleAnimate = 0, toogleConsist = 0, toogleRotate = 0, t
 void draw_t34();
 void t34_init();
 
-
 void RotateFromMouse()
 {
 		glMatrixMode(GL_PROJECTION);
@@ -51,8 +50,6 @@ void RotateFromMouse()
 		xpos = zpos = 0;
 		Mousedx = Mousedy = 0;
 }
-
-
 
 void DrawFig1(int solid)
 {
@@ -81,7 +78,6 @@ void DrawFig1(int solid)
 	
 	glPopMatrix();
 
-
 	glPushMatrix();
 	glTranslatef(0.4, -0.2, -0.3);
 	glRotatef(30, 1, 0, 1);
@@ -94,8 +90,6 @@ void DrawFig1(int solid)
 		glutWireDodecahedron();
 	glPopMatrix();
 }
-
-
 
 void DrawFig2(int N, double r)
 {
@@ -133,8 +127,6 @@ void DrawFig2_2(int N, double r)
 		glPopMatrix();
 	}
 }
-
-
 
 void draw_square()
 {
@@ -175,9 +167,6 @@ void draw_square()
 	glVertex3f(1, 1, -0.1);
 	glEnd();
 	
-	
-	
-
 	//Опоры
 	glPushMatrix();
 	glTranslatef(0.9, 0.9, 0);
@@ -205,12 +194,10 @@ void draw_square()
 	//****
 }
 
-
-
 void DisplayWork()
 {
-	static unsigned dispList = 0;
-	static unsigned angle = 0;
+	unsigned dispList = 0;
+	unsigned angle = 0;
 	
 	glClearColor(0.4, 0.2, 0.1, 1);
 	glClearColor(1, 1, 1, 1);
@@ -238,8 +225,6 @@ void DisplayWork()
 	//glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
 	//glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
 	
-	
-	
 	glPushMatrix();
 	if(toogleRotate)
 	{
@@ -259,9 +244,6 @@ void DisplayWork()
 	draw_square();
 	glPopMatrix();
 	
-	
-	
-	
 	if(toogleFog)
 	{
 		glDisable(GL_FOG);
@@ -275,7 +257,6 @@ void DisplayWork()
 	glutSwapBuffers();
 }
 
-
 void updateProjection()
 {
 	glMatrixMode(GL_PROJECTION);
@@ -288,7 +269,6 @@ void updateProjection()
 		glOrtho(-1, 1, -1, 1, 0.6, 40);
 		glTranslated(0, 0, -2.5);
 	}
-	//glRotatef(90, -1, 0, 0);
 
 	glTranslated(0, 0, -2.5);
 	glMatrixMode(GL_MODELVIEW);
@@ -422,7 +402,6 @@ void KeyBoardFunc(unsigned char key, int x, int y)
 	}
 }
 
-
 void SpecialKeyFunc(int key, int x, int y)
 {
 	switch(key)
@@ -449,23 +428,16 @@ void SpecialKeyFunc(int key, int x, int y)
 	RotateFromMouse();
 }
 
-
-
 void Idle()
 {
 	
 	glutPostRedisplay();
 }
 
-
-
 int main(int argc, char **argv)
 {
 	glutInit(&argc, argv);
-
-	
 	glutInitDisplayMode(GLUT_RGBA|GLUT_DOUBLE);
-
 	mainWindow = glutCreateWindow("tank");
 	glutDisplayFunc( DisplayWork );
 	glutReshapeFunc( Reshape );
@@ -475,14 +447,7 @@ int main(int argc, char **argv)
 	glutSpecialFunc( SpecialKeyFunc );
 	glutIdleFunc( Idle );
 	glutShowWindow();
-
-
-
 	t34_init();
 	glutMainLoop();
 	return 0;
 }
-
-
-
-
